@@ -1,0 +1,7 @@
+<launch>
+  <rosparam file="$(find ur5_control)/config/position_control.yaml" command="load"/>
+  <node name="controller" pkg="controller_manager"
+		type="spawner" output="screen" args="arm_controller">//arm_controller joint_group_position_controller
+  </node>
+
+</launch>

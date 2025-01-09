@@ -1,0 +1,314 @@
+<robot name="ur3_test">
+
+	<link name="world">
+		
+	</link>
+        <link name="base_link">
+        <inertial>
+                <origin xyz="3.9192E-05 -0.00080834 0.04622" rpy="0 0 0" />
+                <mass value="0.61578" />
+                <inertia ixx="0.00076129" ixy="2.9384E-07" ixz="3.5384E-07" iyy="0.00077457" iyz="-3.4657E-06" izz="0.0010029" />
+        </inertial>
+        <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                        <mesh filename="package://ur5/meshes/ur3/base_link.STL" />
+                </geometry>
+                <material name="">
+                        <color rgba="1 1 1 1" />
+                </material>
+        </visual>
+        <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                        <mesh filename="package://ur5/meshes/ur3/base_link.STL" />
+                </geometry>
+        </collision>
+        </link>
+	<joint name="joint_base" type="fixed">
+		<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+		<parent link="world"/>
+		<child link="base_link"/>
+		<axis xyz="0.0 0.0 0.0"/>
+	</joint>
+        <gazebo reference="base_link">
+                <material>Gazebo/Black</material>
+        </gazebo>
+
+
+
+        <link name="shoulder_pan_link">
+                <inertial>
+                        <origin xyz="1.1634E-05 0.0073306 -0.011559" rpy="0 0 0" />
+                        <mass value="0.75582" />
+                        <inertia ixx="0.0010687" ixy="-1.8994E-07" ixz="1.0778E-07" iyy="0.00099006" iyz="-0.00013108" izz="0.00090616" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/shoulder_pan_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/shoulder_pan_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+        <joint name="shoulder_pan_joint" type="revolute">
+                <origin xyz="0 0 0.1519" rpy="0 0 0" />
+                <parent link="base_link" />
+                <child link="shoulder_pan_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="shoulder_pan_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+
+        <link name="shoulder_lift_link">
+                <inertial>
+                        <origin xyz="0.1057 0.1166 4.973E-06" rpy="0 0 0" />
+                        <mass value="1.8018" />
+                        <inertia ixx="0.0016699" ixy="-8.1105E-05" ixz="-1.9355E-07" iyy="0.002517" iyz="1.05E-07" izz="0.0026495" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/shoulder_lift_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/shoulder_lift_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+        <joint name="shoulder_lift_joint" type="revolute">
+                <origin xyz="0 0 0" rpy="-1.5708 -1.5708 0" />
+                <parent link="shoulder_pan_link" />
+                <child link="shoulder_lift_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="shoulder_lift_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+
+        <link name="elbow_link">
+                <inertial>
+                        <origin xyz="0.11119 4.3735E-08 -0.032145" rpy="0 0 0" />
+                        <mass value="0.96221" />
+                        <inertia ixx="0.00054272" ixy="-1.8204E-09" ixz="-4.6141E-05" iyy="0.0010727" iyz="1.4671E-10" izz="0.0010148" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/elbow_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/elbow_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+        <joint name="elbow_joint" type="revolute">
+                <origin xyz="0.24365 0 0" rpy="3.1416 0 0" />
+                <parent link="shoulder_lift_link" />
+                <child link="elbow_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="elbow_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+
+
+        <link name="wrist_1_link">
+                <inertial>
+                        <origin xyz="-7.2372E-08 0.00051699 -0.0059208" rpy="0 0 0" />
+                        <mass value="0.32519" />
+                        <inertia ixx="0.00022622" ixy="1.7006E-10" ixz="-1.5908E-09" iyy="0.00019909" iyz="1.8338E-05" izz="0.00019458" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_1_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_1_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+        <joint name="wrist_1_joint" type="revolute">
+                <origin xyz="0.213 0 -0.1104" rpy="-3.1416 0 -1.5708" />
+                <parent link="elbow_link" />
+                <child link="wrist_1_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="wrist_1_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+
+        <link name="wrist_2_link">
+                <inertial>
+                        <origin xyz="9.251E-08 -0.00051698 -0.0059208" rpy="0 0 0" />
+                        <mass value="0.32519" />
+                        <inertia ixx="0.00022621" ixy="2.6605E-10" ixz="1.6587E-09" iyy="0.00019908" iyz="-1.8338E-05" izz="0.00019458" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_2_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_2_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+                <joint name="wrist_2_joint" type="revolute">
+                <origin xyz="0 -0.0834 0" rpy="1.5708 0 0" />
+                <parent link="wrist_1_link" />
+                <child link="wrist_2_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="wrist_2_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+                
+        <link name="wrist_3_link">
+                <inertial>
+                        <origin xyz="3.4949E-11 0.00010331 -0.020427" rpy="0 0 0" />
+                        <mass value="0.11536" />
+                        <inertia ixx="4.2469E-05" ixy="-5.7739E-13" ixz="-1.2174E-12" iyy="4.2681E-05" iyz="-1.0323E-07" izz="5.9067E-05" />
+                </inertial>
+                <visual>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_3_link.STL" />
+                        </geometry>
+                        <material name="">
+                                <color rgba="1 1 1 1" />
+                        </material>
+                </visual>
+                <collision>
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <mesh filename="package://ur5/meshes/ur3/wrist_3_link.STL" />
+                        </geometry>
+                </collision>
+        </link>
+        <joint name="wrist_3_joint" type="revolute">
+                <origin xyz="0 0.0824 0" rpy="-1.5708 0 0" />
+                <parent link="wrist_2_link" />
+                <child link="wrist_3_link" />
+                <axis xyz="0 0 1" />
+                <limit lower="-3.14" upper="3.14" effort="40" velocity="10" />
+        </joint>
+        <gazebo reference="wrist_3_link">
+                <material>Gazebo/Orange</material>
+        </gazebo>
+        
+
+//VelocityJointInterface
+//PositionJointInterface
+        <transmission name="trans_1">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_1">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="shoulder_pan_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission>
+
+        <transmission name="trans_2">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_2">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="shoulder_lift_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission>
+
+        <transmission name="trans_3">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_3">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="elbow_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission>
+
+         <transmission name="trans_4">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_4">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="wrist_1_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission> 
+
+        <transmission name="trans_5">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_5">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="wrist_2_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission>
+
+         <transmission name="trans_6">
+                <type>transmission_interface/SimpleTransmission</type>
+                <actuator name="motor_6">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>                
+                        <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+                <joint name="wrist_3_joint">
+                        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+        </transmission> 
+
+
+        <gazebo>
+                <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+                </plugin>
+        </gazebo>
+
+</robot>
